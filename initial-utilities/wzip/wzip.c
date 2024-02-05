@@ -8,51 +8,53 @@ int main(int argc, char **argv) {
         return 0;       
     }
 
-    char *filename = argv[1];
+    char *currentChar = (char*)malloc(sizeof(char));
+    int charCount = 0;
 
-    FILE *fileIn = fopen(filename, "r");
+    for(int i = 1; i < argc; i++) {
+        char *filename = argv[i];
 
-    if(fileIn == NULL) {
-        printf("Cannot open file\n");
-        return 1;
-    }
+        FILE *fileIn = fopen(filename, "r");
 
-    char lineText[1000];
-    char *lastChar;
+        if(fileIn == NULL) {
+            printf("Cannot open file\n");
+            return 1;
+        }
 
-    while(fgets(lineText, 1000, fileIn) != NULL) {
-        lastChar = (char*)malloc(sizeof(char));
-        int lastCharCount = 1;
-        for(int i = 0; i < strlen(lineText); i++) {
-            //if(lineText[i] == '\n') {
-                //printf("\n");
-            //}
-            //if(*lastChar == '\n') {
-                //printf("\n");
-            //}
-            if(lineText[i] == *lastChar) {
-                lastCharCount++;
-            }
-            else if(i != 0) {
-                int written = fwrite(&lastCharCount, 4, 1, stdout);
-                if(written == 0) {
-                    printf("error");
+        char lineText[1000];
+
+        while(fgets(lineText, 1000, fileIn) != NULL) {
+            for(int i = 0; i < strlen(lineText); i++) {
+                if(charCount == 0) {
+                    *currentChar = lineText[i];
+                    charCount = 1;
                 }
-                printf("%c", *lastChar);
-                lastCharCount = 1;
+                else if(lineText[i] == *currentChar) {
+                    charCount++;
+                }
+                else if(i != 0) {
+                    int written = fwrite(&charCount, 4, 1, stdout);
+                    if(written == 0) {
+                        printf("error");
+                    }
+                    printf("%c", *currentChar);
+                    *currentChar = lineText[i];
+                    charCount = 1;
+                }
             }
-
-            *lastChar = lineText[i];
         }
-        if(*lastChar == '\n') {
-            printf("\n");
-        }
-        else {
-            fwrite(&lastCharCount, 4, 1, stdout);
-            printf("%c", *lastChar);
-        }
-        free(lastChar);
+       
+        fclose(fileIn);
     }
 
-    fclose(fileIn);
+    if(charCount != 0) {
+        int written = fwrite(&charCount, 4, 1, stdout);
+        if(written == 0) {
+            printf("error");
+        }
+        printf("%c", *currentChar);
+        charCount = 0;
+    }
+
+    free(currentChar);
 }
