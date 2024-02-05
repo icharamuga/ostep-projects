@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
             
             // Invalid filename or file cannot be opened
             if(inputFile == NULL) {
-				printf("wcat: cannot open file\n");
+                printf("wcat: cannot open file\n");
                 return 1;
             }
 
