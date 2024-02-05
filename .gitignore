@@ -1,3 +1,5 @@
 initial-utilities/wgrep/wgrep
 tests-out/
 *~
+initial-utilities/wzip/wzip
+*.swp

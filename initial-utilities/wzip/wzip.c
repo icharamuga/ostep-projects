@@ -13,11 +13,20 @@ int main(int argc, char **argv) {
 
 	if(fileIn == NULL) {
 		printf("Cannot open file\n");
+		return 1;
 	}
 
-	
-
 	char lineText[1000];
+
+	while(fgets(lineText, 1000, fileIn) != NULL) {
+		for(int i = 0; i < strlen(lineText); i++) {
+			if(lineText[i] == '\n') {
+				continue;
+			}
+			printf("%c", lineText[i]);
+		}
+		printf("\n");
+	}
 
 	fclose(fileIn);
 }
