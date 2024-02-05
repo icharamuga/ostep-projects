@@ -4,8 +4,8 @@
 
 int main(int argc, char **argv) {
     if(argc < 2) {
-        printf("Not enough args\n");
-        return 0;       
+        printf("wzip: file1 [file2 ...]\n");
+        return 1;
     }
 
     char *currentChar = (char*)malloc(sizeof(char));
@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
         FILE *fileIn = fopen(filename, "r");
 
         if(fileIn == NULL) {
-            printf("Cannot open file\n");
+            printf("wzip: cannot open file\n");
             return 1;
         }
 
