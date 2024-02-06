@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
             //}
         }
 
-
+        /*
         if(charCount != 0) {
             //charCount++;
             int written = fwrite(&charCount, 4, 1, stdout);
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
             free(currentChar);
             currentChar = NULL;
         }
-
+        */
        
         fclose(fileIn);
     }
