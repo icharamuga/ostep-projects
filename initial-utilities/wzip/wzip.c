@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    char *currentChar = (char*)malloc(sizeof(char));
+    char *currentChar = NULL;
     int charCount = 0;
 
     for(int i = 1; i < argc; i++) {
@@ -24,6 +24,10 @@ int main(int argc, char **argv) {
         char lineText[1000];
 
         while(fgets(lineText, 1000, fileIn) != NULL) {
+            if(currentChar == NULL) {
+                currentChar = (char*)malloc(sizeof(char));
+            }
+
             for(int i = 0; i < strlen(lineText); i++) {
                 if(charCount == 0) {
                     *currentChar = lineText[i];
@@ -32,7 +36,7 @@ int main(int argc, char **argv) {
                 else if(lineText[i] == *currentChar) {
                     charCount++;
                 }
-                else if(i != 0) {
+                else {
                     int written = fwrite(&charCount, 4, 1, stdout);
                     if(written == 0) {
                         printf("error");
@@ -42,19 +46,44 @@ int main(int argc, char **argv) {
                     charCount = 1;
                 }
             }
+
+            //if(lineText[i] == *currentChar) {
+                //charCount++;
+            //}
+            //else {
+                //fwrite(&charCount, 4, 1, stdout);
+                //printf("%c", *currentChar);
+                //charCount = 0;
+                //free(currentChar);
+                //currentChar = NULL;
+            //}
         }
+
+
+        if(charCount != 0) {
+            //charCount++;
+            int written = fwrite(&charCount, 4, 1, stdout);
+            if(written == 0) {
+                printf("error");
+            }
+            printf("%c", *currentChar);
+            charCount = 0;
+            free(currentChar);
+            currentChar = NULL;
+        }
+
        
         fclose(fileIn);
     }
 
     if(charCount != 0) {
+        //charCount++;
         int written = fwrite(&charCount, 4, 1, stdout);
         if(written == 0) {
             printf("error");
         }
         printf("%c", *currentChar);
         charCount = 0;
+        free(currentChar);
     }
-
-    free(currentChar);
 }
