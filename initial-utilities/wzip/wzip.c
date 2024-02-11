@@ -46,33 +46,8 @@ int main(int argc, char **argv) {
                     charCount = 1;
                 }
             }
-
-            //if(lineText[i] == *currentChar) {
-                //charCount++;
-            //}
-            //else {
-                //fwrite(&charCount, 4, 1, stdout);
-                //printf("%c", *currentChar);
-                //charCount = 0;
-                //free(currentChar);
-                //currentChar = NULL;
-            //}
         }
 
-        /*
-        if(charCount != 0) {
-            //charCount++;
-            int written = fwrite(&charCount, 4, 1, stdout);
-            if(written == 0) {
-                printf("error");
-            }
-            printf("%c", *currentChar);
-            charCount = 0;
-            free(currentChar);
-            currentChar = NULL;
-        }
-        */
-       
         fclose(fileIn);
     }
 
