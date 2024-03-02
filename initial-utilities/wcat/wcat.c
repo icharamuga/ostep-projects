@@ -1,3 +1,11 @@
+// File: wcat.c
+// Author: Ian Charamuga
+// Description:
+//     Prints the contents of file(s) to
+//     the standard output (terminal)
+// Usage:
+//     ./wcat file1 [file2 ...]
+
 #include <stdio.h>
 
 int main(int argc, char **argv) {

@@ -1,3 +1,10 @@
+// File: wunzip.c
+// Author: Ian Charamuga
+// Description:
+//     "Unzips" RLE encoded file(s).
+// Usage:
+//     ./wunzip file1 [file2 ...]
+
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
