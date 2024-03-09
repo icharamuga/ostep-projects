@@ -3,10 +3,11 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-	char inputStr[1000];
+	char *inputStr = NULL;
+	size_t size = 0;
     FILE *file_in;
 
-    if(isatty(STDIN_FILENO)) {
+    if(argc == 1) {
         // If stdin has data, pipe from stdin instead of file
         file_in = stdin;
     }
@@ -20,12 +21,16 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-	printf("wish> ");
-	while(fgets(inputStr, 1000, file_in)) {
+	if(file_in == stdin) {
+		printf("wish> ");
+	}
+	while(getline(&inputStr, &size, file_in)) {
 		if(strncmp(inputStr, "exit", 4) == 0) {
 			break;
 		}
 		printf("input: %s", inputStr);
-		printf("wish> ");
+		if(file_in == stdin) {
+			printf("wish> ");
+		}
 	}
 }
