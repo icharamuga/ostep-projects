@@ -26,5 +26,6 @@ int main(int argc, char **argv) {
 			break;
 		}
 		printf("input: %s", inputStr);
+		printf("wish> ");
 	}
 }
