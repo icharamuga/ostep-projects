@@ -55,14 +55,16 @@ int main(int argc, char **argv)
 			strncat(path, program, 500);
 
 			// DEBUG print paths to stdout
-			printf("%s\n", path);
+			// printf("%s\n", path);
 			if (access(path, F_OK) == 0)
 			{
 				printf("it exists %s\n", path);
+				break;
 			}
 			if (access(path, X_OK) == 0)
 			{
 				printf("running %s\n", path);
+				break;
 			}
 		}
 		// printf("arg: %s\n", program);
